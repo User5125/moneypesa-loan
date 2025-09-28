@@ -1,0 +1,220 @@
+<!-- loan-application.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>MoneyPesa Loan Application</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fad0c4);
+      padding: 30px;
+    }
+    .container {
+      max-width: 750px;
+      margin: auto;
+      background: #fff;
+      padding: 35px;
+      border-radius: 14px;
+      box-shadow: 0 6px 25px rgba(0,0,0,0.25);
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 28px;
+      color: #000; /* Black heading */
+      font-size: 34px;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: 600;
+      color: #333;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      margin-top: 6px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+    textarea {
+      resize: vertical;
+    }
+    button {
+      margin-top: 28px;
+      padding: 16px;
+      width: 100%;
+      background: linear-gradient(90deg, #ff512f, #dd2476);
+      border: none;
+      border-radius: 6px;
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: transform 0.2s ease, background 0.3s ease;
+    }
+    button:hover {
+      background: linear-gradient(90deg, #dd2476, #ff512f);
+      transform: scale(1.03);
+    }
+    .calculation {
+      margin-top: 12px;
+      font-weight: bold;
+      color: #c0392b;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>MoneyPesa Loan Application</h1>
+    <form action="https://formspree.io/f/xpwywyeg" method="POST">
+      <!-- Name -->
+      <label for="first_name">First Name *</label>
+      <input type="text" name="first_name" required>
+
+      <label for="last_name">Last Name *</label>
+      <input type="text" name="last_name" required>
+
+      <!-- Contact -->
+      <label for="email">Email Address *</label>
+      <input type="email" name="_replyto" required>
+
+      <label for="phone">Phone Number *</label>
+      <input type="tel" name="phone" required>
+
+      <!-- ID -->
+      <label for="id_number">ID Number *</label>
+      <input type="text" name="id_number" required>
+
+      <!-- Next of Kin -->
+      <label for="next_of_kin">Next of Kin *</label>
+      <input type="text" name="next_of_kin" required>
+
+      <!-- Referrals -->
+      <label>Referral 1 Name *</label>
+      <input type="text" name="referral1_name" required>
+
+      <label>Referral 1 Phone *</label>
+      <input type="tel" name="referral1_phone" required>
+
+      <label>Referral 2 Name *</label>
+      <input type="text" name="referral2_name" required>
+
+      <label>Referral 2 Phone *</label>
+      <input type="tel" name="referral2_phone" required>
+
+      <!-- Loan Details -->
+      <label for="loan_amount">Loan Amount (KES) *</label>
+      <input type="number" id="loan_amount" name="loan_amount" required>
+
+      <label for="loan_term">Loan Term (Months) *</label>
+      <input type="number" id="loan_term" name="loan_term" required>
+
+      <div class="calculation" id="repayment_result">Total repayment: KES 0.00</div>
+
+      <label for="loan_purpose">Loan Purpose / Message *</label>
+      <textarea name="loan_purpose" rows="4" required></textarea>
+
+      <label for="company_name">Company Name *</label>
+      <input type="text" name="company_name" required>
+
+      <label for="signature">Signature (Type Full Name) *</label>
+      <input type="text" name="signature" required>
+
+      <!-- Spam protection -->
+      <input type="text" name="_gotcha" style="display:none" />
+
+      <!-- Redirect after submission -->
+      <input type="hidden" name="_redirect" value="thank-you.html" />
+
+      <button type="submit">Submit Application</button>
+    </form>
+  </div>
+
+  <script>
+    const loanAmountInput = document.getElementById('loan_amount');
+    const loanTermInput = document.getElementById('loan_term');
+    const resultDiv = document.getElementById('repayment_result');
+
+    function updateRepayment() {
+      const amt = parseFloat(loanAmountInput.value);
+      const term = parseInt(loanTermInput.value);
+
+      if (!isNaN(amt) && amt > 0 && !isNaN(term) && term > 0) {
+        const interest = amt * 0.25;
+        const total = amt + interest;
+        resultDiv.textContent = `Total repayment: KES ${total.toFixed(2)} (incl. 25% interest)`;
+      } else {
+        resultDiv.textContent = 'Total repayment: KES 0.00';
+      }
+    }
+
+    loanAmountInput.addEventListener('input', updateRepayment);
+    loanTermInput.addEventListener('input', updateRepayment);
+  </script>
+</body>
+</html>
+
+
+<!-- thank-you.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Application Received</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #89f7fe, #66a6ff);
+      text-align: center;
+      padding: 80px 20px;
+    }
+    .box {
+      background-color: white;
+      max-width: 600px;
+      margin: auto;
+      padding: 50px;
+      border-radius: 14px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+    }
+    h1 {
+      color: #000;
+      margin-bottom: 20px;
+      font-size: 32px;
+    }
+    p {
+      font-size: 18px;
+      margin: 12px 0;
+      color: #444;
+    }
+    a {
+      display: inline-block;
+      margin-top: 30px;
+      text-decoration: none;
+      background: linear-gradient(90deg, #ff512f, #dd2476);
+      color: white;
+      padding: 14px 24px;
+      border-radius: 6px;
+      font-size: 18px;
+      font-weight: bold;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+    a:hover {
+      background: linear-gradient(90deg, #dd2476, #ff512f);
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>Thank you for your application</h1>
+    <p>Your loan is under review. This may take up to 15 minutes.</p>
+    <a href="loan-application.html">← Submit another application</a>
+  </div>
+</body>
+</html>
+```
